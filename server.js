@@ -4,7 +4,7 @@ require('dotenv').config();
 
 
 const app = express();
-
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -23,7 +23,7 @@ Rules you follow:
 
 function getModel() {
     return genAi.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-flash-lite",
         systemInstruction: systemPrompt
     });
 }
@@ -41,7 +41,7 @@ app.post('/api/chat', async (req, res) => {
         }
         if (!conversation[sessionId]) {
             conversation[sessionId] = [];
-}
+        }
 
         const model = getModel();
 
@@ -108,8 +108,6 @@ app.post('/api/reset', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log("Server running on http://localhost:" + PORT);
 });
